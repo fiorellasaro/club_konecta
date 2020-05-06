@@ -24,9 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Club Konecta'),
-      ),
+      appBar: getNav(),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -64,5 +62,54 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  PreferredSizeWidget getNav() {
+    if (_currentIndex == 0)
+      return getNavHome();
+    else
+      return getSecondNav();
+  }
+
+  PreferredSizeWidget getNavHome() {
+    return AppBar(
+      backgroundColor: Color(0xff03DAC5),
+      leading: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: CircleAvatar(
+          radius: 55,
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: CircleAvatar(
+              radius: 50,
+              backgroundImage: AssetImage('assets/2.jpg'),
+            ),
+          ),
+        ),
+      ),
+      title: const Text('Club Konecta'),
+      actions: <Widget>[
+        Icon(
+          Icons.notifications,
+        )
+      ],
+    );
+  }
+
+  PreferredSizeWidget getSecondNav() {
+    List<String> navItemsTitle = ["Home", "Kuentanos", "Teky", "Reconocimientos", "Noticias"];
+    return AppBar(
+      backgroundColor: Color(0xff03DAC5),
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back_ios),
+        onPressed: () {
+          setState(() {
+          _currentIndex =0;
+          });
+        },
+      ),
+      title: Text(navItemsTitle[_currentIndex]),
+    );
   }
 }
