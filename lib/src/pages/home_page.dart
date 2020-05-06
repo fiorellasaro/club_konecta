@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    News(),
+    NewsAndBenefits(),
     KuentanosPage(),
     DisplaysWidget(Colors.green),
     EventPage(),
@@ -98,14 +98,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   PreferredSizeWidget getSecondNav() {
-    List<String> navItemsTitle = ["Home", "Kuentanos", "Teky", "Reconocimientos", "Noticias"];
+    List<String> navItemsTitle = [
+      "Home",
+      "Kuentanos",
+      "Teky",
+      "Reconocimientos",
+      "Noticias"
+    ];
     return AppBar(
       backgroundColor: Color(0xff03DAC5),
       leading: IconButton(
         icon: Icon(Icons.arrow_back_ios),
         onPressed: () {
           setState(() {
-          _currentIndex =0;
+            _currentIndex = 0;
           });
         },
       ),

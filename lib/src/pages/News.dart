@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'rating.dart';
+import 'package:club_konecta/src/model/news_model.dart';
+import 'package:club_konecta/src/providers/news_provider.dart';
 
 final List<String> imgList = [
   'assets/example1.png',
@@ -87,7 +89,8 @@ final List<Widget> imageSliders = imgList
         ))
     .toList();
 
-class News extends StatelessWidget {
+class NewsAndBenefits extends StatelessWidget {
+  final HttpServiceNews httpService = HttpServiceNews();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -123,20 +126,6 @@ class News extends StatelessWidget {
                 ),
               ],
             ),
-            // Column is also a layout widget. It takes a list of children and
-            // arranges them vertically. By default, it sizes itself to fit its
-            // children horizontally, and tries to be as tall as its parent.
-            //
-            // Invoke "debug painting" (press "p" in the console, choose the
-            // "Toggle Debug Paint" action from the Flutter Inspector in Android
-            // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-            // to see the wireframe for each widget.
-            //
-            // Column has various properties to control how it sizes itself and
-            // how it positions its children. Here we use mainAxisAlignment to
-            // center the children vertically; the main axis here is the vertical
-            // axis because Columns are vertical (the cross axis would be
-            // horizontal).
           ),
           SizedBox(
             height: 20.0,
@@ -155,53 +144,100 @@ class News extends StatelessWidget {
               ),
             ),
           ),
-          Card(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  child: Container(
+          FutureBuilder(
+            future: httpService.getNews(),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<News>> snapshot) {
+              if (snapshot.hasData) {
+                List<News> posts = snapshot.data;
+
+                return Column(
+                  children: posts
+                      .map(
+                        (News post) => Card(
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                child: Container(
 //                  margin: EdgeInsets.all(5.0),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset('assets/example1.png',
-                                fit: BoxFit.cover, width: 350.0),
-                            Positioned(
-                              bottom: 0.0,
-                              left: 0.0,
-                              right: 0.0,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color.fromARGB(200, 0, 0, 0),
-                                      Color.fromARGB(0, 0, 0, 0)
-                                    ],
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                  ),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(5.0)),
+                                      child: Stack(
+                                        children: <Widget>[
+                                          Image.asset('assets/example1.png',
+                                              fit: BoxFit.cover, width: 1000.0),
+                                          Positioned(
+                                            bottom: 0.0,
+                                            left: 0.0,
+                                            right: 0.0,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color.fromARGB(
+                                                        200, 0, 0, 0),
+                                                    Color.fromARGB(0, 0, 0, 0)
+                                                  ],
+                                                  begin: Alignment.bottomCenter,
+                                                  end: Alignment.topCenter,
+                                                ),
+                                              ),
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.0,
+                                                  horizontal: 20.0),
+                                              child: Text(
+                                                'Beneficio ${post.id} ',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
                                 ),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 40.0, horizontal: 20.0),
-                                child: Text(
-                                  'Beneficio 1 ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 20.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        post.title,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        post.body,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                      Rating()
+                                    ],
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )),
-                  ),
-                ),
-                Text('Beneficio 1 '),
-              ],
-            ),
-          )
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList(),
+                );
+              }
+              return CircularProgressIndicator();
+            },
+          ),
         ],
       ),
     );
