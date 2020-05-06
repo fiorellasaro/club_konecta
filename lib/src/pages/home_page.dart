@@ -1,3 +1,4 @@
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:club_konecta/src/pages/reconocimiento_page.dart';
 import 'package:club_konecta/src/pages/teky.dart';
 import 'kuentanos.dart';
@@ -12,10 +13,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    KuentanosPage(),
     DisplaysWidget(Colors.red),
-     ReconocimientoPage(),
+    KuentanosPage(),
      DisplaysWidget(Colors.green),
+     ReconocimientoPage(),
      DisplaysWidget(Colors.pink),
   ];
 
@@ -45,8 +46,8 @@ class _HomePageState extends State<HomePage> {
             title: Text('Teky'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            title: Text('mood'),
+            icon: Icon(MdiIcons.medal),
+            title: Text('Reconocimientos'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.public),
@@ -58,6 +59,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void onTabTapped(int index) {
+    // Navigator.pushNamed(context, '$index');
     setState(() {
       _currentIndex = index;
     });
