@@ -2,6 +2,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:club_konecta/src/pages/reconocimiento_page.dart';
 import 'package:club_konecta/src/pages/teky.dart';
 import 'kuentanos.dart';
+import 'News.dart';
 
 import 'package:flutter/material.dart';
 
@@ -13,11 +14,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    DisplaysWidget(Colors.red),
+    News(),
     KuentanosPage(),
-     DisplaysWidget(Colors.green),
-     ReconocimientoPage(),
-     DisplaysWidget(Colors.pink),
+    DisplaysWidget(Colors.green),
+    ReconocimientoPage(),
+    DisplaysWidget(Colors.pink),
   ];
 
   @override
