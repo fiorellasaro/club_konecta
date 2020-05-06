@@ -1,5 +1,5 @@
+import 'package:club_konecta/src/pages/events_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:club_konecta/src/pages/reconocimiento_page.dart';
 import 'package:club_konecta/src/pages/teky.dart';
 import 'kuentanos.dart';
 import 'News.dart';
@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     News(),
     KuentanosPage(),
     DisplaysWidget(Colors.green),
-    ReconocimientoPage(),
+    EventoPage(),
     DisplaysWidget(Colors.pink),
   ];
 
