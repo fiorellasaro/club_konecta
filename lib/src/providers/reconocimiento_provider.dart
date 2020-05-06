@@ -5,7 +5,7 @@ import 'package:club_konecta/src/model/events_model.dart';
 import 'package:http/http.dart';
 
 
-class HttpServiceEvents {
+class HttpServiceReconocimiento {
 final String eventURL = "https://jsonplaceholder.typicode.com/posts";
 
 Future<List<Event>> getEvents() async {

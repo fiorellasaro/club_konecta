@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     News(),
     KuentanosPage(),
     DisplaysWidget(Colors.green),
-    EventoPage(),
+    EventPage(),
     DisplaysWidget(Colors.pink),
   ];
 
