@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
-
-import 'src/pages/home_page.dart';
+import 'package:club_konecta/src/pages/init_pages.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Componentes App',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: InitPages(),
     );
   }
 }
