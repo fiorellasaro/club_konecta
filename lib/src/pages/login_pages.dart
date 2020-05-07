@@ -240,7 +240,7 @@ class _LoginPage extends State<LoginPage> {
     if (value.length == 0) {
       return "Teclee su DNI";
     } else if (value.length != 8) {
-      return "El DNI debe contener 10 digitos";
+      return "El DNI debe contener 8 digitos";
     }
     return null;
   }
