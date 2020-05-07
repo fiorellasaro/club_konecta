@@ -1,4 +1,5 @@
 import 'package:club_konecta/src/pages/events_page.dart';
+import 'package:club_konecta/src/pages/profile_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:club_konecta/src/pages/teky.dart';
 import 'kuentanos.dart';
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
       appBar: getNav(),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         currentIndex: _currentIndex,
         onTap: onTabTapped,
         fixedColor: Colors.tealAccent[400],
@@ -81,9 +83,17 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(1.0),
+           child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
+                 print('tap avatar');
+                }, 
             child: CircleAvatar(
               radius: 50,
               backgroundImage: AssetImage('assets/2.jpg'),
+              ),
             ),
           ),
         ),
@@ -92,7 +102,7 @@ class _HomePageState extends State<HomePage> {
       actions: <Widget>[
         Icon(
           Icons.notifications,
-        )
+        ),
       ],
     );
   }

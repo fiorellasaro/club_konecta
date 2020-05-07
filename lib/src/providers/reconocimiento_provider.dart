@@ -8,7 +8,7 @@ import 'package:http/http.dart';
 class HttpServiceReconocimiento {
 final String eventURL = "https://jsonplaceholder.typicode.com/posts";
 
-Future<List<Event>> getEvents() async {
+Future<List<Event>> getReconocimientos() async {
     Response res = await get(eventURL);
 
     if (res.statusCode == 200) {
