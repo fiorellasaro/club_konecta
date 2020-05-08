@@ -1,5 +1,6 @@
 import 'package:club_konecta/src/pages/events_page.dart';
 import 'package:club_konecta/src/pages/profile_page.dart';
+import 'package:club_konecta/src/pages/second_news.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:club_konecta/src/pages/teky.dart';
 import 'kuentanos.dart';
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     KuentanosPage(),
     DisplaysWidget(Colors.green),
     EventPage(),
-    DisplaysWidget(Colors.pink),
+    SecondNewsBenefits(),
   ];
 
   @override
