@@ -239,7 +239,7 @@ class _LoginPage extends State<LoginPage> {
     RegExp regExp = new RegExp(patttern);
     if (value.length == 0) {
       return "Teclee su DNI";
-    } else if (value.length != 10) {
+    } else if (value.length != 8) {
       return "El DNI debe contener 10 digitos";
     }
     return null;
