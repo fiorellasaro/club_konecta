@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'rating.dart';
-import 'package:club_konecta/src/model/news_model.dart';
 import 'package:club_konecta/src/providers/news_provider.dart';
+import 'package:club_konecta/src/model/news_json_model.dart';
+import 'dart:convert';
+import 'package:carousel_pro/carousel_pro.dart';
 
 final List<String> imgList = [
   'assets/example1.png',
@@ -89,6 +91,104 @@ final List<Widget> imageSliders = imgList
         ))
     .toList();
 
+class CarouselList extends StatelessWidget {
+  final HttpServiceNews httpService = HttpServiceNews();
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: httpService.getNews(),
+      builder: (BuildContext context, AsyncSnapshot<List<Noticia>> snapshot) {
+        if (snapshot.hasData) {
+          List<Noticia> posts = snapshot.data;
+
+          return Column(
+            children: posts
+                .map(
+                  (Noticia post) => Card(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: Container(
+//                  margin: EdgeInsets.all(5.0),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(5.0)),
+                                child: Stack(
+                                  children: <Widget>[
+                                    Image.asset('assets/example1.png',
+                                        fit: BoxFit.cover, width: 1000.0),
+                                    Positioned(
+                                      bottom: 0.0,
+                                      left: 0.0,
+                                      right: 0.0,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Color.fromARGB(200, 0, 0, 0),
+                                              Color.fromARGB(0, 0, 0, 0)
+                                            ],
+                                            begin: Alignment.bottomCenter,
+                                            end: Alignment.topCenter,
+                                          ),
+                                        ),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10.0, horizontal: 20.0),
+                                        child: Text(
+                                          post.titulo,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  post.titulo,
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  post.resumen,
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                Rating()
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
+          );
+        }
+        return CircularProgressIndicator();
+      },
+    );
+  }
+}
+
+final cardsList = [CarouselList];
+
 class NewsAndBenefits extends StatelessWidget {
   final HttpServiceNews httpService = HttpServiceNews();
   @override
@@ -147,14 +247,14 @@ class NewsAndBenefits extends StatelessWidget {
           FutureBuilder(
             future: httpService.getNews(),
             builder:
-                (BuildContext context, AsyncSnapshot<List<News>> snapshot) {
+                (BuildContext context, AsyncSnapshot<List<Noticia>> snapshot) {
               if (snapshot.hasData) {
-                List<News> posts = snapshot.data;
+                List<Noticia> posts = snapshot.data;
 
                 return Column(
                   children: posts
                       .map(
-                        (News post) => Card(
+                        (Noticia post) => Card(
                           child: Column(
                             children: <Widget>[
                               Container(
@@ -187,7 +287,7 @@ class NewsAndBenefits extends StatelessWidget {
                                                   vertical: 10.0,
                                                   horizontal: 20.0),
                                               child: Text(
-                                                'Beneficio ${post.id} ',
+                                                post.titulo,
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 20.0,
@@ -211,14 +311,14 @@ class NewsAndBenefits extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
-                                        post.title,
+                                        post.titulo,
                                         style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
-                                        post.body,
+                                        post.resumen,
                                         style: TextStyle(
                                           fontSize: 16.0,
                                         ),
@@ -249,3 +349,53 @@ class NewsAndBenefits extends StatelessWidget {
       ),*/ // This trailing comma makes auto-formatting nicer for build methods.
   }
 }
+/*
+
+class NewsList extends StatelessWidget {
+  final List<Noticia> noticia;
+  NewsList({Key key, this.noticia}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new ListView.builder(
+        itemCount: noticia == null ? 0 : noticia.length,
+        itemBuilder: (BuildContext context, int index) {
+          return new Card(
+            child: new Container(
+              child: new Center(
+                  child: new Column(
+                // Stretch the cards in horizontal axis
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  new Text(
+                    // Read the name field value and set it in the Text widget
+                    noticia[index].id.toString(),
+                    // set some style to text
+                    style: new TextStyle(
+                        fontSize: 20.0, color: Colors.lightBlueAccent),
+                  ),
+                  new Text(
+                    // Read the name field value and set it in the Text widget
+                    "Titulo:- " + noticia[index].titulo,
+                    // set some style to text
+                    style: new TextStyle(fontSize: 20.0, color: Colors.amber),
+                  ),
+                ],
+              )),
+              padding: const EdgeInsets.all(15.0),
+            ),
+          );
+        });
+  }
+}
+
+List<Noticia> parseJson(String response) {
+  if(response==null){
+    return [];
+  }
+  final parsed =
+  json.decode(response.toString()).cast<Map<String, dynamic>>();
+  return parsed.map<Noticia>((json) => new Noticia().fromJson(json)).toList();
+}
+}
+*/
