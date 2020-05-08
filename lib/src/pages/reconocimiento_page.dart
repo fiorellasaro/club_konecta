@@ -1,7 +1,10 @@
+import 'package:club_konecta/src/model/reconocimiento_model.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:club_konecta/src/model/events_model.dart';
+
 import 'package:club_konecta/src/providers/reconocimiento_provider.dart';
 import 'package:flutter/material.dart';
+// import 'package:youtube_player/youtube_player.dart';
+
 
 class ReconocimientoDetail extends StatelessWidget {
   final HttpServiceReconocimiento httpService = HttpServiceReconocimiento();
@@ -34,44 +37,49 @@ class ReconocimientoDetail extends StatelessWidget {
               child: FutureBuilder(
                 future: httpService.getReconocimientos(),
                 builder: (BuildContext context,
-                    AsyncSnapshot<List<Event>> snapshot) {
+                    AsyncSnapshot<List<Reconocimiento>> snapshot) {
                   if (snapshot.hasData) {
-                    List<Event> posts = snapshot.data;
+                    List<Reconocimiento> reconocimiento = snapshot.data;
                     return ListView(
-                      children: posts
+                      children: reconocimiento
                           .map(
-                            (Event post) => Card(
+                            (Reconocimiento reconocimiento) => Card(
                               child: new Column(
                                 children: <Widget>[
                                   Container(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 20.0, horizontal: 10.0),
                                     child: Text(
-                                      post.title,
+                                      reconocimiento.titulo,
                                       style: TextStyle(
                                         fontFamily: 'Monserrate',
                                         fontSize: 17,
                                       ),
                                     ),
                                   ),
-                                  FadeInImage(
-                                    placeholder:
-                                        AssetImage('assets/original.gif'),
-                                    image: NetworkImage(
-                                        'https://estaticos.elperiodico.com/resources/jpg/3/3/dia-madre-1554778597633.jpg'),
-                                    fadeInDuration: Duration(milliseconds: 200),
-                                    height: 300.0,
-                                    fit: BoxFit.cover,
-                                  ),
+                                FadeInImage(
+                                placeholder: AssetImage('assets/original.gif'), 
+                                image: NetworkImage(reconocimiento.banner),
+                                fadeInDuration: Duration(milliseconds: 200),
+                                height: 300.0,
+                                fit: BoxFit.cover,
+                                ),
+                              // YoutubePlayer(
+                              //   context: context,
+                              //   source: "7QUtEmBT_-w",
+                              //   quality: YoutubeQuality.HD,
+                              //   aspectRatio: 16 / 9,
+                              // ),
                                   Container(
                                     padding: EdgeInsets.symmetric(
-                                        vertical: 20.0, horizontal: 10.0),
+                                    vertical: 20.0, horizontal: 15.0),
                                     child: Text(
-                                      post.body,
+                                      reconocimiento.contenido,
                                       style: TextStyle(
                                         fontFamily: 'Monserrate',
                                         fontSize: 17,
                                       ),
+                                      textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -92,4 +100,5 @@ class ReconocimientoDetail extends StatelessWidget {
       ),
     );
   }
+  
 }

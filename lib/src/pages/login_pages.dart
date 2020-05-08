@@ -230,7 +230,7 @@ class _LoginPage extends State<LoginPage> {
   }
 
   String validatePassword(String value) {
-    if (value.length == 0) return "Teclee su contrasena";
+    if (value.length == 0) return "Ingrese la contrasena";
     return null;
   }
 
@@ -238,7 +238,7 @@ class _LoginPage extends State<LoginPage> {
     String patttern = r'(^[0-9]*$)';
     RegExp regExp = new RegExp(patttern);
     if (value.length == 0) {
-      return "Teclee su DNI";
+      return "Ingrese el número de DNI";
     } else if (value.length != 8) {
       return "El DNI debe contener 8 digitos";
     }

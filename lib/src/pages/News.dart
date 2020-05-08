@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+// import 'package:carousel_slider/carousel_slider.dart';
 import 'rating.dart';
 import 'package:club_konecta/src/providers/news_provider.dart';
 import 'package:club_konecta/src/model/news_json_model.dart';
 import 'package:club_konecta/src/model/beneficios_model.dart';
 import 'package:club_konecta/src/providers/beneficios_provider.dart';
+
 import 'package:club_konecta/src/pages/news_detail.dart';
 import 'dart:convert';
 import 'package:carousel_pro/carousel_pro.dart';

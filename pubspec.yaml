@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   http:
+  youtube_player: ^3.5.0 
   material_design_icons_flutter: ^3.4.4595
 
   # The following adds the Cupertino Icons font to your application.
@@ -28,6 +29,7 @@ dependencies:
   carousel_slider: ^2.0.0
   flutter_rating_bar: ^1.1.0
   carousel_pro: ^1.0.0
+  url_launcher: ^5.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
