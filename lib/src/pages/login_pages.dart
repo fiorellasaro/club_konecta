@@ -235,8 +235,8 @@ class _LoginPage extends State<LoginPage> {
   }
 
   String validateDni(String value) {
-    String patttern = r'(^[0-9]*$)';
-    RegExp regExp = new RegExp(patttern);
+    // String patttern = r'(^[0-9]*$)';
+    // RegExp regExp = new RegExp(patttern);
     if (value.length == 0) {
       return "Ingrese el número de DNI";
     } else if (value.length != 8) {

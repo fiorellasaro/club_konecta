@@ -1,5 +1,4 @@
 import 'package:club_konecta/src/pages/rating.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'package:club_konecta/src/providers/news_provider.dart';
 import 'package:flutter/material.dart';

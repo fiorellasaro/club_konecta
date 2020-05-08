@@ -8,8 +8,6 @@ import 'package:club_konecta/src/model/beneficios_model.dart';
 import 'package:club_konecta/src/providers/beneficios_provider.dart';
 
 import 'package:club_konecta/src/pages/news_detail.dart';
-import 'dart:convert';
-import 'package:carousel_pro/carousel_pro.dart';
 
 final List<String> imgList = [
   'assets/example1.png',
