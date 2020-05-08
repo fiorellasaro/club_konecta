@@ -6,8 +6,10 @@ import 'package:club_konecta/src/providers/news_provider.dart';
 import 'package:club_konecta/src/model/news_json_model.dart';
 import 'package:club_konecta/src/model/beneficios_model.dart';
 import 'package:club_konecta/src/providers/beneficios_provider.dart';
-// import 'dart:convert';
-// import 'package:carousel_pro/carousel_pro.dart';
+
+import 'package:club_konecta/src/pages/news_detail.dart';
+import 'dart:convert';
+import 'package:carousel_pro/carousel_pro.dart';
 
 final List<String> imgList = [
   'assets/example1.png',
@@ -234,7 +236,7 @@ class NewsAndBenefits extends StatelessWidget {
           ),*/
           Container(
             width: 1000,
-            height: 350,
+            height: 300,
             child: FutureBuilder(
               future: httpService.getNews(),
               builder: (BuildContext context,
@@ -250,85 +252,98 @@ class NewsAndBenefits extends StatelessWidget {
                           (Noticia post) => Container(
                             width: 400,
                             child: Card(
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Container(
+                              child: InkWell(
+                                onTap: () {
+                                  print("tapped");
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => NewsDetail(
+                                            news: post.id, detail: post)),
+                                  );
+                                },
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      child: Container(
 //                  margin: EdgeInsets.all(5.0),
-                                      child: ClipRRect(
-                                          borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(5.0)),
-                                          child: Stack(
-                                            children: <Widget>[
-                                              Image.asset('assets/example1.png',
-                                                  fit: BoxFit.cover,
-                                                  width: 1000.0),
-                                              Positioned(
-                                                bottom: 0.0,
-                                                left: 0.0,
-                                                right: 0.0,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      colors: [
-                                                        Color.fromARGB(
-                                                            200, 0, 0, 0),
-                                                        Color.fromARGB(
-                                                            0, 0, 0, 0)
-                                                      ],
-                                                      begin: Alignment
-                                                          .bottomCenter,
-                                                      end: Alignment.topCenter,
+                                        child: ClipRRect(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(5.0)),
+                                            child: Stack(
+                                              children: <Widget>[
+                                                Image.network(post.banner,
+                                                    fit: BoxFit.cover,
+                                                    width: 1000.0,
+                                                    height: 150),
+                                                Positioned(
+                                                  bottom: 0.0,
+                                                  left: 0.0,
+                                                  right: 0.0,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      gradient: LinearGradient(
+                                                        colors: [
+                                                          Color.fromARGB(
+                                                              200, 0, 0, 0),
+                                                          Color.fromARGB(
+                                                              0, 0, 0, 0)
+                                                        ],
+                                                        begin: Alignment
+                                                            .bottomCenter,
+                                                        end:
+                                                            Alignment.topCenter,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 10.0,
-                                                      horizontal: 20.0),
-                                                  child: Text(
-                                                    post.titulo,
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 10.0,
+                                                            horizontal: 20.0),
+                                                    child: Text(
+                                                      post.titulo,
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 20.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          )),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 20.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            post.titulo,
-                                            style: TextStyle(
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            post.resumen,
-                                            style: TextStyle(
-                                              fontSize: 16.0,
-                                            ),
-                                          ),
-                                          Rating()
-                                        ],
+                                              ],
+                                            )),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              post.titulo,
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              post.resumen,
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                              ),
+                                            ),
+                                            Rating()
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -378,8 +393,10 @@ class NewsAndBenefits extends StatelessWidget {
                                           top: Radius.circular(5.0)),
                                       child: Stack(
                                         children: <Widget>[
-                                          Image.asset('assets/example1.png',
-                                              fit: BoxFit.cover, width: 1000.0),
+                                          Image.network(post.banner,
+                                              fit: BoxFit.cover,
+                                              width: 1000.0,
+                                              height: 150),
                                           Positioned(
                                             bottom: 0.0,
                                             left: 0.0,
