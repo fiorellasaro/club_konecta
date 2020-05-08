@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+// import 'package:carousel_slider/carousel_slider.dart';
 import 'rating.dart';
 import 'package:club_konecta/src/providers/news_provider.dart';
 import 'package:club_konecta/src/model/news_json_model.dart';
+import 'package:club_konecta/src/model/beneficios_model.dart';
+import 'package:club_konecta/src/providers/beneficios_provider.dart';
 // import 'dart:convert';
+// import 'package:carousel_pro/carousel_pro.dart';
 
 final List<String> imgList = [
   'assets/example1.png',
@@ -92,6 +95,7 @@ final List<Widget> imageSliders = imgList
 
 class CarouselList extends StatelessWidget {
   final HttpServiceNews httpService = HttpServiceNews();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -190,6 +194,8 @@ final cardsList = [CarouselList];
 
 class NewsAndBenefits extends StatelessWidget {
   final HttpServiceNews httpService = HttpServiceNews();
+  final HttpServiceBenefits httpServiceBenefits = HttpServiceBenefits();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -352,16 +358,16 @@ class NewsAndBenefits extends StatelessWidget {
             ),
           ),
           FutureBuilder(
-            future: httpService.getNews(),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Noticia>> snapshot) {
+            future: httpServiceBenefits.getBenefits(),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Beneficio>> snapshot) {
               if (snapshot.hasData) {
-                List<Noticia> posts = snapshot.data;
+                List<Beneficio> posts = snapshot.data;
 
                 return Column(
                   children: posts
                       .map(
-                        (Noticia post) => Card(
+                        (Beneficio post) => Card(
                           child: Column(
                             children: <Widget>[
                               Container(

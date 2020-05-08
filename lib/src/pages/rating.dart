@@ -7,8 +7,8 @@ class Rating extends StatelessWidget {
     return FlutterRatingBar(
       initialRating: 0,
       itemSize: 30,
-      fillColor: Colors.tealAccent[400],
-      borderColor: Colors.tealAccent[400],
+      fillColor: Colors.amber,
+      borderColor: Colors.amber,
       allowHalfRating: true,
       onRatingUpdate: (rating) {
         print(rating);
