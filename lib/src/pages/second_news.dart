@@ -42,6 +42,7 @@ class SecondNewsBenefits extends StatelessWidget {
                     List<Noticia> noticias = snapshot.data;
 
                     return Column(
+                      
                       children: noticias
                           .map(
                             (Noticia noticia) => Card(
