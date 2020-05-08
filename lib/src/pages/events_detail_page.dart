@@ -4,7 +4,6 @@ import 'package:club_konecta/src/model/events_model.dart';
 import 'package:club_konecta/src/providers/events_provider.dart';
 import 'package:flutter/material.dart';
 
-
 class EventsDetailsPage extends StatelessWidget {
 
   final HttpServiceEvents httpService = HttpServiceEvents();

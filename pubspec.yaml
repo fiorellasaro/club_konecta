@@ -28,6 +28,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   carousel_slider: ^2.0.0
   flutter_rating_bar: ^1.1.0
+  carousel_pro: ^1.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
