@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(MdiIcons.medal),
-            title: Text('Reconocimientos'),
+            title: Text('Logros'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.public),
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
       "Home",
       "Kuentanos",
       "Teky",
-      "Reconocimientos",
+      "Reconocimientos y Eventos",
       "Noticias"
     ];
     return AppBar(
