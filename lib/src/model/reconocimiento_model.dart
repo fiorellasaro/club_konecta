@@ -1,24 +1,33 @@
 import 'package:flutter/foundation.dart';
 
 class Reconocimiento {
-  final int userId;
   final int id;
-  final String title;
-  final String body;
+  final String fechaPublicacion;
+  final String titulo;
+  final String contenido;
+  final String fechaEvento;
+  final String multimedia;
+  final String banner;
 
   Reconocimiento({
-    @required this.userId,
     @required this.id,
-    @required this.title,
-    @required this.body,
+    @required this.titulo,
+    @required this.fechaPublicacion,
+    @required this.contenido,
+    @required this.fechaEvento,
+    @required this.multimedia,
+    @required this.banner,
   });
 
   factory Reconocimiento.fromJson(Map<String, dynamic> json) {
     return Reconocimiento(
-      userId: json['userId'] as int,
-      id: json['id'] as int,
-      title: json['title'] as String,
-      body: json['body'] as String,
+      id: json['Id'] as int,
+      titulo: json['Titulo'] as String,
+      fechaPublicacion: json['FechaPublicacion'] as String,
+      contenido: json['Contenido'] as String,
+      fechaEvento: json['FechaEvento'] as String,
+      multimedia: json['Multimedia'] as String,
+      banner: json['Banner'] as String,
     );
   }
 }

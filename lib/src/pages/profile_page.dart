@@ -1,3 +1,4 @@
+import 'package:club_konecta/src/pages/init_pages.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -113,7 +114,20 @@ class MyCustomFormState extends State<MyCustomForm> {
             GeneroStatefulWidget(),
             Text('¿Cuál de los equipos tienes en casa?'),
             EquipoStatefulWidget(),
-            
+           
+              
+              ListTile(
+                contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: -10.0),
+                leading:
+                  Icon(Icons.power_settings_new, size: 25.0, color: Colors.teal[300]),
+                  title: Text("Cerrar sesión", style: TextStyle(decoration: TextDecoration.none, color: Colors.blue)),
+                  onTap: () {
+                  Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => InitPages()),
+                );
+                 print('tap avatar');
+                }, 
+                ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Center(

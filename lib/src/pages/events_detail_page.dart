@@ -39,33 +39,36 @@ class EventsDetailsPage extends StatelessWidget {
         future: httpService.getEvents(),
         builder: (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
           if (snapshot.hasData) {
-            List<Event> posts = snapshot.data;
+            List<Event> event = snapshot.data;
             return ListView(
-              children: posts
-                  .map((Event post) =>
+              children: event
+                  .map((Event event) =>
                   Card(
                     child: new Column(
                       children: <Widget>[
                         Container(
                           padding: EdgeInsets.symmetric(vertical:20.0, horizontal: 10.0),
-                          child: Text(post.title, style: TextStyle(
+                          child: Text(event.titulo, style: TextStyle(
                             fontFamily: 'Monserrate',
                             fontSize: 18,
                           ),),
                           ),
                           FadeInImage(
                             placeholder: AssetImage('assets/original.gif'), 
-                            image: NetworkImage('https://estaticos.elperiodico.com/resources/jpg/3/3/dia-madre-1554778597633.jpg'),
+                            image: NetworkImage(event.banner),
                             fadeInDuration: Duration(milliseconds: 200),
                             height: 300.0,
                             fit: BoxFit.cover,
                             ),
-                         Container(
+                           
+                          Container(
                           padding: EdgeInsets.symmetric(vertical:20.0, horizontal: 10.0),
-                          child: Text(post.body, style: TextStyle(
+                          child: Text(event.contenido, style: TextStyle(
                             fontFamily: 'Monserrate',
                             fontSize: 17,
-                          ),),
+                          ),
+                          textAlign: TextAlign.justify,
+                          ),
                           ),
                           ],),),
                       )

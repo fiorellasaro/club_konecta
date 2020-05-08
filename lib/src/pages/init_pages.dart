@@ -6,7 +6,9 @@ class InitPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
+      debugShowCheckedModeBanner: false,
+      home: 
+      Scaffold(
         backgroundColor: Color(0xff03DAC5),
         body: SafeArea(
           child: Center(
@@ -73,7 +75,7 @@ class InitPages extends StatelessWidget {
                   child: FlatButton(
                       padding: EdgeInsets.all(13.0),
                       child: new Text(
-                        "Iniciar Sesion",
+                        "Iniciar Sesión",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,

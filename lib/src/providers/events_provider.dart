@@ -6,7 +6,8 @@ import 'package:http/http.dart';
 
 
 class HttpServiceEvents {
-final String eventURL = "https://jsonplaceholder.typicode.com/posts";
+// final String eventURL = "https://jsonplaceholder.typicode.com/posts";
+final String eventURL = "https://desarrollotest-592a0.firebaseio.com/Evento.json";
 
 Future<List<Event>> getEvents() async {
     Response res = await get(eventURL);
