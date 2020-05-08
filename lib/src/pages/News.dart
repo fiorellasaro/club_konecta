@@ -210,20 +210,128 @@ class NewsAndBenefits extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+/*          Container(
             child: Column(
-/*          mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,*/
+*/ /*          mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,*/ /*
               children: <Widget>[
                 CarouselSlider(
                   options: CarouselOptions(
-                      /*    autoPlay: true,
-                      aspectRatio: 2.0,*/
+                      */ /*    autoPlay: true,
+                      aspectRatio: 2.0,*/ /*
                       enlargeCenterPage: true,
                       height: 320),
                   items: imageSliders,
                 ),
               ],
+            ),
+          ),*/
+          Container(
+            width: 1000,
+            height: 350,
+            child: FutureBuilder(
+              future: httpService.getNews(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Noticia>> snapshot) {
+                if (snapshot.hasData) {
+                  List<Noticia> posts = snapshot.data;
+
+                  return ListView(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    children: posts
+                        .map(
+                          (Noticia post) => Container(
+                            width: 400,
+                            child: Card(
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Container(
+//                  margin: EdgeInsets.all(5.0),
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(5.0)),
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Image.asset('assets/example1.png',
+                                                  fit: BoxFit.cover,
+                                                  width: 1000.0),
+                                              Positioned(
+                                                bottom: 0.0,
+                                                left: 0.0,
+                                                right: 0.0,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    gradient: LinearGradient(
+                                                      colors: [
+                                                        Color.fromARGB(
+                                                            200, 0, 0, 0),
+                                                        Color.fromARGB(
+                                                            0, 0, 0, 0)
+                                                      ],
+                                                      begin: Alignment
+                                                          .bottomCenter,
+                                                      end: Alignment.topCenter,
+                                                    ),
+                                                  ),
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 10.0,
+                                                      horizontal: 20.0),
+                                                  child: Text(
+                                                    post.titulo,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 20.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            post.titulo,
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            post.resumen,
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          Rating()
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  );
+                }
+                return CircularProgressIndicator();
+              },
             ),
           ),
           SizedBox(
