@@ -14,7 +14,7 @@ class SecondNewsBenefits extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding: new EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+        padding: new EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
         child: Column(
 //        crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -33,7 +33,7 @@ class SecondNewsBenefits extends StatelessWidget {
               ),
             ),
             Container(
-              padding: new EdgeInsets.all( 10.0),
+              padding: new EdgeInsets.all( 5.0),
               child: FutureBuilder(
                 future: httpService.getNews(),
                 builder:
@@ -42,7 +42,7 @@ class SecondNewsBenefits extends StatelessWidget {
                     List<Noticia> noticias = snapshot.data;
 
                     return Column(
-                      
+
                       children: noticias
                           .map(
                             (Noticia noticia) => Card(
@@ -147,7 +147,7 @@ class SecondNewsBenefits extends StatelessWidget {
               ),
             ),
             Container(
-              padding: new EdgeInsets.all( 10.0),
+              padding: new EdgeInsets.all( 5.0),
               child: FutureBuilder(
                 future: httpServiceBenefict.getBenefits(),
                 builder:

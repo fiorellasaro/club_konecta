@@ -23,7 +23,9 @@ final List<Widget> imageSliders = imgList
           child: Column(
             children: <Widget>[
               Container(
+                
                 child: Container(
+                 
 //                  margin: EdgeInsets.all(5.0),
                   child: ClipRRect(
                       borderRadius:
@@ -103,7 +105,6 @@ class CarouselList extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<List<Noticia>> snapshot) {
         if (snapshot.hasData) {
           List<Noticia> posts = snapshot.data;
-
           return Column(
             children: posts
                 .map(
@@ -137,14 +138,14 @@ class CarouselList extends StatelessWidget {
                                         ),
                                         padding: EdgeInsets.symmetric(
                                             vertical: 10.0, horizontal: 20.0),
-                                        child: Text(
-                                          post.titulo,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
+                                        // child: Text(
+                                        //   post.titulo,
+                                        //   style: TextStyle(
+                                        //     color: Colors.white,
+                                        //     fontSize: 20.0,
+                                        //     fontWeight: FontWeight.bold,
+                                        //   ),
+                                        // ),
                                       ),
                                     ),
                                   ],
@@ -159,20 +160,22 @@ class CarouselList extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Text(
+                                  Text(
                                   post.titulo,
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                ),
+                                  ),
                                 Text(
                                   post.resumen,
                                   style: TextStyle(
                                     fontSize: 16.0,
                                   ),
                                 ),
-                                Rating()
+                               Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                                  child: Rating(),),
                               ],
                             ),
                           ),
@@ -234,7 +237,9 @@ class NewsAndBenefits extends StatelessWidget {
           ),*/
           Container(
             width: 1000,
-            height: 300,
+            height: 350,
+            padding: new EdgeInsets.all( 15.0),
+            
             child: FutureBuilder(
               future: httpService.getNews(),
               builder: (BuildContext context,
@@ -296,15 +301,15 @@ class NewsAndBenefits extends StatelessWidget {
                                                         EdgeInsets.symmetric(
                                                             vertical: 10.0,
                                                             horizontal: 20.0),
-                                                    child: Text(
-                                                      post.titulo,
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
+                                                    // child: Text(
+                                                    //   post.titulo,
+                                                    //   style: TextStyle(
+                                                    //     color: Colors.white,
+                                                    //     fontSize: 20.0,
+                                                    //     fontWeight:
+                                                    //         FontWeight.bold,
+                                                    //   ),
+                                                    // ),
                                                   ),
                                                 ),
                                               ],
@@ -322,21 +327,27 @@ class NewsAndBenefits extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: <Widget>[
-                                            Text(
-                                              post.titulo,
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+               
+                                             Container(
+                                               padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                               child: Text(
+                                                post.titulo,
+                                                style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                             ),
+                                             ),
                                             Text(
                                               post.resumen,
                                               style: TextStyle(
                                                 fontSize: 16.0,
                                               ),
                                             ),
-                                            Rating()
-                                          ],
+                                            Container(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                            child: Rating()),
+                                        ],
                                         ),
                                       ),
                                     ),
@@ -349,7 +360,9 @@ class NewsAndBenefits extends StatelessWidget {
                         .toList(),
                   );
                 }
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator(
+                    backgroundColor: Color(0xff03DAC5),
+                  ),);
               },
             ),
           ),
@@ -370,101 +383,112 @@ class NewsAndBenefits extends StatelessWidget {
               ),
             ),
           ),
-          FutureBuilder(
-            future: httpServiceBenefits.getBenefits(),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<Beneficio>> snapshot) {
-              if (snapshot.hasData) {
-                List<Beneficio> posts = snapshot.data;
+          Container(
+            padding: new EdgeInsets.all( 15.0),
+            child: FutureBuilder(
+              future: httpServiceBenefits.getBenefits(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Beneficio>> snapshot) {
+                if (snapshot.hasData) {
+                  List<Beneficio> posts = snapshot.data;
 
-                return Column(
-                  children: posts
-                      .map(
-                        (Beneficio post) => Card(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                child: Container(
+                  return Column(
+                    children: posts
+                        .map(
+                          (Beneficio post) => Card(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  child: Container(
 //                  margin: EdgeInsets.all(5.0),
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(5.0)),
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Image.network(post.banner,
-                                              fit: BoxFit.cover,
-                                              width: 1000.0,
-                                              height: 150),
-                                          Positioned(
-                                            bottom: 0.0,
-                                            left: 0.0,
-                                            right: 0.0,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                gradient: LinearGradient(
-                                                  colors: [
-                                                    Color.fromARGB(
-                                                        200, 0, 0, 0),
-                                                    Color.fromARGB(0, 0, 0, 0)
-                                                  ],
-                                                  begin: Alignment.bottomCenter,
-                                                  end: Alignment.topCenter,
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(5.0)),
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Image.network(post.banner,
+                                                fit: BoxFit.cover,
+                                                width: 1000.0,
+                                                height: 150),
+                                            Positioned(
+                                              bottom: 0.0,
+                                              left: 0.0,
+                                              right: 0.0,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      Color.fromARGB(
+                                                          200, 0, 0, 0),
+                                                      Color.fromARGB(0, 0, 0, 0)
+                                                    ],
+                                                    begin: Alignment.bottomCenter,
+                                                    end: Alignment.topCenter,
+                                                  ),
                                                 ),
-                                              ),
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 10.0,
-                                                  horizontal: 20.0),
-                                              child: Text(
-                                                post.titulo,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 10.0,
+                                                    horizontal: 20.0),
+                                                // child: Text(
+                                                //   post.titulo,
+                                                //   style: TextStyle(
+                                                //     color: Colors.white,
+                                                //     fontSize: 20.0,
+                                                //     fontWeight: FontWeight.bold,
+                                                //   ),
+                                                // ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      )),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Container(
-                                  margin:
-                                      EdgeInsets.symmetric(horizontal: 20.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        post.titulo,
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        post.resumen,
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                        ),
-                                      ),
-                                      Rating()
-                                    ],
+                                          ],
+                                        )),
                                   ),
                                 ),
-                              ),
-                            ],
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 20.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(vertical:15.0),
+                                          child: Text(
+                                            post.titulo,
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          post.resumen,
+                                          style: TextStyle(
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(vertical:20.0),
+                                          child: Rating(),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                      .toList(),
-                );
-              }
-              return CircularProgressIndicator();
-            },
+                        )
+                        .toList(),
+                  );
+                }
+                 return Center(child: CircularProgressIndicator(
+                      backgroundColor: Color(0xff03DAC5),
+                    ),);
+              },
+            ),
           ),
         ],
       ),
