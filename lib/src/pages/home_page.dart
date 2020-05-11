@@ -1,8 +1,10 @@
 import 'package:club_konecta/src/pages/events_page.dart';
 import 'package:club_konecta/src/pages/profile_page.dart';
 import 'package:club_konecta/src/pages/second_news.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:club_konecta/src/pages/teky.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// import 'package:club_konecta/src/pages/teky.dart';
+// import 'package:url_launcher/url_launcher.dart';
 import 'kuentanos.dart';
 import 'News.dart';
 
@@ -44,8 +46,8 @@ class _HomePageState extends State<HomePage> {
             title: Text('Kuentanos'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            title: Text('Teky'),
+            icon: ImageIcon(AssetImage("assets/kamu.png"),),
+            title: Text('Kami'),
           ),
           BottomNavigationBarItem(
             icon: Icon(MdiIcons.medal),
@@ -112,7 +114,7 @@ class _HomePageState extends State<HomePage> {
     List<String> navItemsTitle = [
       "Home",
       "Kuentanos",
-      "Teky",
+      "Kami",
       "Reconocimientos y Eventos",
       "Noticias"
     ];
