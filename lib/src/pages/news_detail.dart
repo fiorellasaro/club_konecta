@@ -1,8 +1,10 @@
 import 'package:club_konecta/src/pages/rating.dart';
 
 import 'package:club_konecta/src/providers/news_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:club_konecta/src/model/news_json_model.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 class NewsDetail extends StatelessWidget {
   NewsDetail({this.news, this.detail});
@@ -19,46 +21,90 @@ class NewsDetail extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.network(detail.banner),
-              Text(
-                detail.titulo,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              Image.network(
+                detail.banner,
+                fit: BoxFit.fill,
               ),
-              Row(
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundImage: NetworkImage(detail.perfil.foto),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        detail.perfil.nombre + " " + detail.perfil.apellido,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(detail.perfil.direccion)
-                    ],
-                  )
-                ],
-              ),
-              Text(detail.contenido),
-              Text('¿Te gustó el artículo?'),
-              Rating(),
-              Align(
-                alignment: Alignment.centerLeft,
+              Padding(
+                padding: const EdgeInsets.all(15.0),
                 child: Text(
-                  detail.comentario.length.toString() + ' comentarios',
-                  style: TextStyle(
-                    fontSize: 14.0,
+                  detail.titulo,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundImage: NetworkImage(detail.perfil.foto),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          detail.perfil.nombre + " " + detail.perfil.apellido,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(detail.perfil.direccion)
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(detail.contenido, textAlign: TextAlign.justify),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: <Widget>[
+                      Text('¿Te gustó el artículo?'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Rating(),
+                    ],
                   ),
                 ),
               ),
-              Column(
-                children:
-                    listOfComments(detail.comentario.length, detail.comentario),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.mode_comment,
+                        color: Colors.grey,
+                      ),
+                      Text(
+                        detail.comentario.length.toString() + ' comentarios',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  children: listOfComments(
+                      detail.comentario.length, detail.comentario),
+                ),
               ),
             ],
           ),
@@ -77,19 +123,45 @@ List<Widget> listOfComments(numero, comentarios) {
               radius: 25,
               backgroundImage: NetworkImage(comentarios[i].perfil.foto),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  comentarios[i].comentario,
-                  style: TextStyle(fontWeight: FontWeight.normal),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(comentarios[i].fechaPublicacion)
-              ],
+            SizedBox(
+              width: 15,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(
+                        color: Colors.grey[200],
+                        width: 1,
+                      ),
+                    ),
+                    child: Text(
+                      comentarios[i].comentario,
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(comentarios[i].fechaPublicacion.substring(0, 10)),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Text(comentarios[i].fechaPublicacion.substring(11, 16)),
+                    ],
+                  ),
+                ],
+              ),
             )
           ],
         ),
