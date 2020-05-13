@@ -28,7 +28,7 @@ class Beneficio {
 
   Beneficio.fromJson(Map<String, dynamic> json) {
     anulado = json['Anulado'];
-    banner = json['Banner'];
+    banner = json['Multimedia'];
     if (json['Comentario'] != null) {
       comentario = new List<Comentario>();
       json['Comentario'].forEach((v) {

@@ -9,7 +9,7 @@ class EventPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: new Container(
-        padding: new EdgeInsets.symmetric(vertical: 20.0, horizontal: 25.0),
+        padding: new EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
         child: new Column(
           children: <Widget>[
             ListTile(
@@ -23,32 +23,34 @@ class EventPage extends StatelessWidget {
                     textAlign: TextAlign.justify,
               ),
             ),
-            SizedBox(
-              height: 30.0,
-            ),
-            new Container(
-              width: 220,
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  new MyCard(
-                    icon: new Icon(MdiIcons.partyPopper,
-                        size: 70.0, color: Colors.teal[300]),
-                    title: new Text("Eventos",
-                        style: new TextStyle(fontSize: 18.0)),
-                    ruta: EventsDetailsPage(),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  new MyCard(
-                    icon: new Icon(MdiIcons.medal,
-                        size: 70.0, color: Colors.teal[300]),
-                    title: new Text("Reconocimiento",
-                        style: new TextStyle(fontSize: 18.0)),
-                    ruta: ReconocimientoDetail(),
-                  ),
-                ],
+          //  SizedBox(
+          //    height: 30.0,
+         //   ),
+            SingleChildScrollView(
+                          child: new Container(
+                width: 220,
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    new MyCard(
+                      icon: new Icon(MdiIcons.partyPopper,
+                          size: 70.0, color: Colors.teal[300]),
+                      title: new Text("Eventos",
+                          style: new TextStyle(fontSize: 18.0)),
+                      ruta: EventsDetailsPage(),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    new MyCard(
+                      icon: new Icon(MdiIcons.medal,
+                          size: 70.0, color: Colors.teal[300]),
+                      title: new Text("Reconocimiento",
+                          style: new TextStyle(fontSize: 18.0)),
+                      ruta: ReconocimientoDetail(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
