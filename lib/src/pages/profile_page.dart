@@ -1,7 +1,11 @@
+import 'package:club_konecta/src/model/user_model.dart';
 import 'package:club_konecta/src/pages/init_pages.dart';
+import 'package:club_konecta/src/providers/user_provider.dart';
+
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
+  final HttpServiceUser httpService = HttpServiceUser();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,30 +18,54 @@ class ProfilePage extends StatelessWidget {
           padding: new EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           child: new Column(
             children: <Widget>[
-              getName(),
-              Center(
-                child: GestureDetector(
-                  child: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage('assets/2.jpg'),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: ListTile(
-                  title: Text(
-                    'Mis datos',
-                    style: TextStyle(
-                      fontFamily: 'Monserrate',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff03DAC5),
+              FutureBuilder(
+              future: httpService.getUsers(),
+              builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
+                if (snapshot.hasData) {
+            List<User> user = snapshot.data;
+            return ListView(
+              children: user.map(
+                (User user) => Container(
+                  child: new Column(
+                  children: <Widget>[
+                    ListTile(
+                    title: Text(user.name),
                     ),
-                  ),
-                ),
+              // getName(),
+              // Center(
+              //   child: GestureDetector(
+              //     child: CircleAvatar(
+              //       radius: 40,
+              //       backgroundImage: AssetImage('assets/2.jpg'),
+              //     ),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 10.0),
+              //   child: ListTile(
+              //     title: Text(
+              //       'Mis datos',
+              //       style: TextStyle(
+              //         fontFamily: 'Monserrate',
+              //         fontSize: 16,
+              //         fontWeight: FontWeight.bold,
+              //         color: Color(0xff03DAC5),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // MyCustomForm()
+                  ],
               ),
-              MyCustomForm(),
+              ),
+              ).toList(),
+               );
+              }
+               return Center(child: CircularProgressIndicator(
+            backgroundColor: Color(0xff03DAC5),
+          ),);
+              },
+              ),
             ],
           ),
         ),
@@ -47,30 +75,50 @@ class ProfilePage extends StatelessWidget {
 }
 
 Widget getName() {
-  return Container(
+  final HttpServiceUser httpService = HttpServiceUser();
+  return Expanded(
     // padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 70),
-    child: ListTile(
-      title: Center(
-        child: Text(
-          'Veronica',
-          style: new TextStyle(
-            fontSize: 20.0,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      subtitle: Center(
-        child: Text(
-          'Lima, Perú ',
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 14,
-            color: Color(0xff03DAC5),
-          ),
-        ),
-      ),
-    ),
+    child: FutureBuilder(
+        future: httpService.getUsers(),
+        builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
+          if (snapshot.hasData) {
+            List<User> user = snapshot.data;
+            return ListView(
+              children: user
+                  .map(
+                    (User user) => Card(
+                        child: ListTile(
+                          title: Center(
+                            child: Text(user.name,
+                              style: new TextStyle(
+                                fontSize: 20.0,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          subtitle: Center(
+                            child: Text(
+                              'Lima, Perú ',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 14,
+                                color: Color(0xff03DAC5),
+                              ),
+                            ),
+                          ),
+                        ),
+                        ),
+                  )
+                  .toList(),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Color(0xff03DAC5),
+            ),
+          );
+        }),
   );
 }
 
@@ -96,7 +144,6 @@ class MyCustomFormState extends State<MyCustomForm> {
           children: <Widget>[
             TextFormField(
               decoration: InputDecoration(labelText: 'Nombres y Apellidos'),
-             
             ),
             TextFormField(
               decoration: InputDecoration(labelText: 'E-mail:'),
@@ -114,20 +161,21 @@ class MyCustomFormState extends State<MyCustomForm> {
             GeneroStatefulWidget(),
             Text('¿Cuál de los equipos tienes en casa?'),
             EquipoStatefulWidget(),
-           
-              
-              ListTile(
-                contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: -10.0),
-                leading:
-                  Icon(Icons.power_settings_new, size: 25.0, color: Colors.teal[300]),
-                  title: Text("Cerrar sesión", style: TextStyle(decoration: TextDecoration.none, color: Colors.blue)),
-                  onTap: () {
-                  Navigator.of(context).push(
+            ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 15.0, horizontal: -10.0),
+              leading: Icon(Icons.power_settings_new,
+                  size: 25.0, color: Colors.teal[300]),
+              title: Text("Cerrar sesión",
+                  style: TextStyle(
+                      decoration: TextDecoration.none, color: Colors.blue)),
+              onTap: () {
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => InitPages()),
                 );
-                 print('tap avatar');
-                }, 
-                ),
+                print('tap avatar');
+              },
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Center(
@@ -136,7 +184,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                   textColor: Color(0xff837DFF),
                   child: Text('Editar perfil'),
                   borderSide: BorderSide(
-                      color: Color(0xff837DFF), style: BorderStyle.solid, width: 1),
+                      color: Color(0xff837DFF),
+                      style: BorderStyle.solid,
+                      width: 1),
                   onPressed: () {},
                 ),
               ),

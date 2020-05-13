@@ -7,14 +7,15 @@ class DisplaysWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return 
+    Container(
       // width: 300,
       // height: 400,
       child: Center(
         child: new InkWell(
           // child: new Text('Iniciar KAMU'),
           onTap: () =>
-              launch('https://www.facebook.com/messages/t/108126643854484'),
+              launch('https://M.me/KonectaLab99'),
           child: Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
