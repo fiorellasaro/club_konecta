@@ -1,16 +1,16 @@
 import 'package:club_konecta/src/pages/rating.dart';
 
-import 'package:club_konecta/src/providers/news_provider.dart';
+import 'package:club_konecta/src/providers/beneficios_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:club_konecta/src/model/news_json_model.dart';
+import 'package:club_konecta/src/model/beneficios_model.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
-class NewsDetail extends StatelessWidget {
-  NewsDetail({this.title, this.news, this.detail});
-  final HttpServiceNews httpService = HttpServiceNews();
-  final int news;
-  final Noticia detail;
+class BenefitsDetail extends StatelessWidget {
+  BenefitsDetail({this.title,this.benefits, this.detail});
+  final HttpServiceBenefits httpService = HttpServiceBenefits();
+  final int benefits;
+  final Beneficio detail;
   final String title;
 
   @override
