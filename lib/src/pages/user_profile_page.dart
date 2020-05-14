@@ -182,11 +182,11 @@ class _ProfileUserState extends State<ProfileUser> {
                     activeColor: Colors.teal[200],
                     value: GeneroCharacter.mujer,
                     groupValue: _genero,
-                    onChanged: (GeneroCharacter value) {
+                    onChanged:_isEnabled ? (GeneroCharacter value) {
                       setState(() {
                         _genero = value;
                       });
-                    },
+                    } : null,
                   ),
                 ),
               ),
@@ -198,11 +198,11 @@ class _ProfileUserState extends State<ProfileUser> {
                     activeColor: Colors.teal[200],
                     value: GeneroCharacter.hombre,
                     groupValue: _genero,
-                    onChanged: (GeneroCharacter value) {
+                    onChanged: _isEnabled ? (GeneroCharacter value) {
                       setState(() {
                         _genero = value;
                       });
-                    },
+                    } : null,
                   ),
                 ),
               ),
@@ -237,21 +237,21 @@ class _ProfileUserState extends State<ProfileUser> {
           // Text('¿Cuál de los equipos tienes en casa?'),
           new CheckboxListTile(
             value: _valuePC,
-            onChanged: _valuePCChanged,
+            onChanged: _isEnabled? _valuePCChanged : null,
             title: new Text('Computadora'),
             controlAffinity: ListTileControlAffinity.leading,
             activeColor: Colors.teal[200],
           ),
           new CheckboxListTile(
             value: _valueLaptop,
-            onChanged: _valueLaptopChanged,
+            onChanged: _isEnabled? _valueLaptopChanged : null,
             title: new Text('Laptop'),
             controlAffinity: ListTileControlAffinity.leading,
             activeColor: Colors.teal[200],
           ),
           new CheckboxListTile(
             value: _valueInternet,
-            onChanged: _valueInternetChanged,
+            onChanged: _isEnabled? _valueInternetChanged : null,
             title: new Text('Internet'),
             controlAffinity: ListTileControlAffinity.leading,
             activeColor: Colors.teal[200],
@@ -287,12 +287,18 @@ class _ProfileUserState extends State<ProfileUser> {
         child: OutlineButton(
           shape: StadiumBorder(),
           textColor: Color(0xff0752D8),
-          onPressed: () => setState(() => _isEnabled = !_isEnabled),
+          onPressed: onChangedEdit,
               child: Text(_isEnabled ? "Guardar" : "Editar"),
           borderSide: BorderSide(
               color: Color(0xff0752D8), style: BorderStyle.solid, width: 1),
         ),
       ),
     );
+  }
+
+    onChangedEdit() {
+    setState(() {
+      _isEnabled = !_isEnabled;
+    });
   }
 }

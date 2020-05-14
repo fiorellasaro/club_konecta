@@ -4,7 +4,7 @@ import 'package:club_konecta/src/providers/beneficios_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:club_konecta/src/model/beneficios_model.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
+// import 'package:outline_material_icons/outline_material_icons.dart';
 
 class BenefitsDetail extends StatelessWidget {
   BenefitsDetail({this.title,this.benefits, this.detail});

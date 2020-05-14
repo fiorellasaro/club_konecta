@@ -4,7 +4,7 @@ import 'package:club_konecta/src/providers/news_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:club_konecta/src/model/news_json_model.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
+// import 'package:outline_material_icons/outline_material_icons.dart';
 
 class NewsDetail extends StatelessWidget {
   NewsDetail({this.title, this.news, this.detail});
