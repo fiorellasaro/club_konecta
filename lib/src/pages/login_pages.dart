@@ -20,48 +20,46 @@ class _LoginPage extends State<LoginPage> {
       home: Scaffold(
         backgroundColor: Color(0xff03DAC5),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 25),
-                    height: 45,
-                    child: Text(
-                      'Iniciar sesión',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Montserrat',
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1),
-                    ),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(bottom:10),
+                  child: Text(
+                    'Iniciar sesión',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Montserrat',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1),
                   ),
-                  Container(
-                    width: 340,
-                    height: 450,
-                    child: SingleChildScrollView(
-                      child: Card(
-                        child: Form(
-                          key: keyForm,
-                          child: Padding(
-                            padding: const EdgeInsets.all(30.0),
-                            child: Column(
-                              children: <Widget>[
-                                getTitle(),
-                                userField(),
-                                userPassword(),
-                                getCheckBox(),
-                                getButton(),
-                              ],
-                            ),
+                ),
+                Container(
+                  width: 340,
+                  child: SingleChildScrollView(
+                    child: Card(
+                      child: Form(
+                        key: keyForm,
+                        child: Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: Column(
+                            children: <Widget>[
+                              getTitle(),
+                              userField(),
+                              userPassword(),
+                              getCheckBox(),
+                              getButton(),
+                            ],
                           ),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -100,7 +98,7 @@ class _LoginPage extends State<LoginPage> {
       child: RaisedButton(
         padding: EdgeInsets.all(13.0),
         textColor: Colors.white,
-        color: Color(0xff837DFF),
+        color: Color(0xff0752D8),
         child: Text(
           "Iniciar sesión",
           style: TextStyle(

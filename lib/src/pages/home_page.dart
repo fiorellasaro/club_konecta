@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
            child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => UserProfilePage()),
+                  MaterialPageRoute(builder: (context) => ProfileUser()),
                 );
                  print('tap avatar');
                 }, 

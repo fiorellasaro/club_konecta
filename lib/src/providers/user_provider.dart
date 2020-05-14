@@ -10,7 +10,6 @@ Future<List<User>> getUsers() async {
     Response res = await get(userURL);
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
-
       List<User> user = body
           .map(
             (dynamic item) => User.fromJson(item),
