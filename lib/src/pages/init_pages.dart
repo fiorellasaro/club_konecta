@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:club_konecta/src/pages/login_pages.dart';
+import 'package:club_konecta/src/pages/register_pages.dart';
 
 class InitPages extends StatelessWidget {
   // This widget is the root of your application.
@@ -38,7 +39,13 @@ class InitPages extends StatelessWidget {
                       shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterPage()),
+                        );
+                      },
                       child: Text(
                         'Registrarme',
                         style: TextStyle(
@@ -78,5 +85,5 @@ class InitPages extends StatelessWidget {
         ),
       ),
     );
-    }
-    }
+  }
+}
