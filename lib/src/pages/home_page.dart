@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: getNav(),
       body: _children[_currentIndex],
+      backgroundColor: Colors.grey[100],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         currentIndex: _currentIndex,
@@ -47,7 +48,9 @@ class _HomePageState extends State<HomePage> {
             title: Text('Kuentanos'),
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage("assets/kamu.png"),),
+            icon: ImageIcon(
+              AssetImage("assets/kamu.png"),
+            ),
             title: Text('Kami'),
           ),
           BottomNavigationBarItem(
@@ -92,11 +95,11 @@ class _HomePageState extends State<HomePage> {
                   Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => ProfileUser()),
                 );
-                 print('tap avatar');
-                }, 
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/2.jpg'),
+                print('tap avatar');
+              },
+              child: CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage('assets/2.jpg'),
               ),
             ),
           ),
