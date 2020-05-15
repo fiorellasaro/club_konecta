@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:club_konecta/src/providers/login_provider.dart';
 import 'package:club_konecta/src/pages/home_page.dart';
+// import 'package:club_konecta/src/model/login_model.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -7,6 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
+  final HttpServiceLogin httpService = HttpServiceLogin();
   GlobalKey<FormState> keyForm = new GlobalKey();
   TextEditingController dniCtrl = new TextEditingController();
   TextEditingController passwordCtrl = new TextEditingController();
@@ -26,7 +29,7 @@ class _LoginPage extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(bottom:10),
+                  margin: EdgeInsets.only(bottom: 10),
                   child: Text(
                     'Iniciar sesión',
                     style: TextStyle(
@@ -114,13 +117,18 @@ class _LoginPage extends State<LoginPage> {
     );
   }
 
-  void validateAndSave() {
+  void validateAndSave() async {
     final FormState form = keyForm.currentState;
     if (form.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      Map data = {'dni': dniCtrl.text, 'password': passwordCtrl.text};
+      httpService.checkUser(data).then((value) => {
+            print(value),
+            httpService.getUserData().then((value) => {
+                  print(value),
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage())),
+                }),
+          });
     } else {
       print('Form is invalid');
     }
