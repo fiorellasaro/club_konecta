@@ -1,3 +1,4 @@
+import 'package:club_konecta/src/providers/activate_account_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:club_konecta/src/pages/congrats_page.dart';
 
@@ -7,6 +8,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPage extends State<RegisterPage> {
+  final HttpServiceActivateAccount httpService = HttpServiceActivateAccount();
+
   GlobalKey<FormState> keyForm = new GlobalKey();
   TextEditingController dniCtrl = new TextEditingController();
   TextEditingController passwordCtrl = new TextEditingController();
@@ -94,6 +97,17 @@ class _RegisterPage extends State<RegisterPage> {
   void validateAndCreate() {
     final FormState form = keyForm.currentState;
     if (form.validate()) {
+      Map data = {'dni': dniCtrl.text};
+      httpService.activateAccount(data).then((value) => {
+            print(value),
+            print(data),
+            // httpService.activateAccount().then((value) => {
+            //       print(value),
+            //       Navigator.push(context,
+            //           MaterialPageRoute(builder: (context) => HomePage())),
+            //     }),
+          });
+
       if (fieldClave == false) {
         setState(() {
           showNotification();

@@ -1,6 +1,7 @@
 import 'package:club_konecta/src/model/user_model.dart';
 import 'package:club_konecta/src/pages/init_pages.dart';
-import 'package:club_konecta/src/providers/user_provider.dart';
+import 'package:club_konecta/src/providers/login_provider.dart';
+// import 'package:club_konecta/src/providers/user_provider.dart';
 
 import 'package:flutter/material.dart';
 
@@ -17,11 +18,11 @@ class _ProfileUserState extends State<ProfileUser> {
   GlobalKey<FormState> keyForm = new GlobalKey();
   TextEditingController txtNombreCtrl = TextEditingController();
   TextEditingController txtEmailCtrl = TextEditingController();
-  TextEditingController txtCelularCtrl= TextEditingController();
-  TextEditingController txtDireccionCtrl= TextEditingController();
+  TextEditingController txtCelularCtrl = TextEditingController();
+  TextEditingController txtDireccionCtrl = TextEditingController();
 
   bool _isEnabled = false;
-  final HttpServiceUser httpService = HttpServiceUser();
+  final HttpServiceLogin httpService = HttpServiceLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -35,28 +36,33 @@ class _ProfileUserState extends State<ProfileUser> {
           children: <Widget>[
             Expanded(
               child: FutureBuilder(
-                future: httpService.getUsers(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
+                future: httpService.getUserData(),
+                builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
                   if (snapshot.hasData) {
-                    List<User> users = snapshot.data;
-                    return ListView(
-                      children: users
-                          .map(
-                            (User user) => Container(
-                              child: new Column(
-                                children: <Widget>[
-                                  getName(),
-                                  datosUserForm(),
-                                  generoForm(),
-                                  equiposTecnicos(),
-                                  closeSession(),
-                                  btnEditar(),
-                                ],
+                    User users = snapshot.data;
+                    return Container(
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Center(
+                              child: Text(
+                                users.nombre,
+                                style: new TextStyle(
+                                  fontSize: 20.0,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          )
-                          .toList(),
+                          ),
+                          getName(),
+                          datosUserForm(),
+                          generoForm(),
+                          equiposTecnicos(),
+                          closeSession(),
+                          btnEditar(),
+                        ],
+                      ),
                     );
                   } else {
                     return Center(child: CircularProgressIndicator());
@@ -72,39 +78,85 @@ class _ProfileUserState extends State<ProfileUser> {
 
   Widget getName() {
     return Container(
-      // padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 70),
       child: Column(
         children: <Widget>[
-          ListTile(
-            title: Center(
-              child: Text(
-                'user.name',
-                style: new TextStyle(
-                  fontSize: 20.0,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            subtitle: Center(
-              child: Text(
-                'Lima, Perú ',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 14,
-                  color: Color(0xff03DAC5),
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: GestureDetector(
-              child: CircleAvatar(
-                radius: 40,
-                backgroundImage: AssetImage('assets/2.jpg'),
-              ),
-            ),
-          ),
+          FutureBuilder(
+            future: httpService.getUserData(),
+            builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+              if (snapshot.hasData) {
+                User users = snapshot.data;
+                return Container(
+
+                  child: Column(
+                    children: <Widget>[
+                      ListTile(
+                        title: Center(
+                          child: Text(
+                            users.nombre,
+                            style: new TextStyle(
+                              fontSize: 20.0,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        subtitle: Center(
+                          child: Text(
+                            'Lima, Perú ',
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 14,
+                              color: Color(0xff03DAC5),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: GestureDetector(
+                          child: CircleAvatar(
+                            radius: 40,
+                            backgroundImage: AssetImage('assets/2.jpg'),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          )
+          // ListTile(
+          //   title: Center(
+          //     child: Text(
+          //       'user.name',
+          //       style: new TextStyle(
+          //         fontSize: 20.0,
+          //         fontFamily: 'Roboto',
+          //         fontWeight: FontWeight.bold,
+          //       ),
+          //     ),
+          //   ),
+          //   subtitle: Center(
+          //     child: Text(
+          //       'Lima, Perú ',
+          //       style: TextStyle(
+          //         fontFamily: 'Roboto',
+          //         fontSize: 14,
+          //         color: Color(0xff03DAC5),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // Center(
+          //   child: GestureDetector(
+          //     child: CircleAvatar(
+          //       radius: 40,
+          //       backgroundImage: AssetImage('assets/2.jpg'),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -163,15 +215,15 @@ class _ProfileUserState extends State<ProfileUser> {
       child: Column(
         children: <Widget>[
           ListTile(
-              title: Text(
-                'Género',
-                style: TextStyle(
-                  fontFamily: 'Monserrate',
-                  fontSize: 12,
-                  color: Color(0xff393939),
-                ),
+            title: Text(
+              'Género',
+              style: TextStyle(
+                fontFamily: 'Monserrate',
+                fontSize: 12,
+                color: Color(0xff393939),
               ),
             ),
+          ),
           Row(
             children: <Widget>[
               new Expanded(
@@ -182,11 +234,13 @@ class _ProfileUserState extends State<ProfileUser> {
                     activeColor: Colors.teal[200],
                     value: GeneroCharacter.mujer,
                     groupValue: _genero,
-                    onChanged:_isEnabled ? (GeneroCharacter value) {
-                      setState(() {
-                        _genero = value;
-                      });
-                    } : null,
+                    onChanged: _isEnabled
+                        ? (GeneroCharacter value) {
+                            setState(() {
+                              _genero = value;
+                            });
+                          }
+                        : null,
                   ),
                 ),
               ),
@@ -198,11 +252,13 @@ class _ProfileUserState extends State<ProfileUser> {
                     activeColor: Colors.teal[200],
                     value: GeneroCharacter.hombre,
                     groupValue: _genero,
-                    onChanged: _isEnabled ? (GeneroCharacter value) {
-                      setState(() {
-                        _genero = value;
-                      });
-                    } : null,
+                    onChanged: _isEnabled
+                        ? (GeneroCharacter value) {
+                            setState(() {
+                              _genero = value;
+                            });
+                          }
+                        : null,
                   ),
                 ),
               ),
@@ -218,40 +274,40 @@ class _ProfileUserState extends State<ProfileUser> {
   bool _valueInternet = false;
   void _valuePCChanged(bool value) => setState(() => _valuePC = value);
   void _valueLaptopChanged(bool value) => setState(() => _valueLaptop = value);
-  void _valueInternetChanged(bool value) => setState(() => _valueInternet = value);
-
+  void _valueInternetChanged(bool value) =>
+      setState(() => _valueInternet = value);
 
   Widget equiposTecnicos() {
     return Center(
       child: new Column(
         children: <Widget>[
           ListTile(
-              title: Text(
-                '¿Cuál de los equipos tienes en casa?',
-                style: TextStyle(
-                  fontFamily: 'Monserrate',
-                  fontSize: 12,
-                ),
+            title: Text(
+              '¿Cuál de los equipos tienes en casa?',
+              style: TextStyle(
+                fontFamily: 'Monserrate',
+                fontSize: 12,
               ),
             ),
+          ),
           // Text('¿Cuál de los equipos tienes en casa?'),
           new CheckboxListTile(
             value: _valuePC,
-            onChanged: _isEnabled? _valuePCChanged : null,
+            onChanged: _isEnabled ? _valuePCChanged : null,
             title: new Text('Computadora'),
             controlAffinity: ListTileControlAffinity.leading,
             activeColor: Colors.teal[200],
           ),
           new CheckboxListTile(
             value: _valueLaptop,
-            onChanged: _isEnabled? _valueLaptopChanged : null,
+            onChanged: _isEnabled ? _valueLaptopChanged : null,
             title: new Text('Laptop'),
             controlAffinity: ListTileControlAffinity.leading,
             activeColor: Colors.teal[200],
           ),
           new CheckboxListTile(
             value: _valueInternet,
-            onChanged: _isEnabled? _valueInternetChanged : null,
+            onChanged: _isEnabled ? _valueInternetChanged : null,
             title: new Text('Internet'),
             controlAffinity: ListTileControlAffinity.leading,
             activeColor: Colors.teal[200],
@@ -266,8 +322,7 @@ class _ProfileUserState extends State<ProfileUser> {
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: -10.0),
-        leading:
-            Icon(Icons.power_settings_new, size: 25.0, color: Colors.blue),
+        leading: Icon(Icons.power_settings_new, size: 25.0, color: Colors.blue),
         title: Text("Cerrar sesión",
             style:
                 TextStyle(decoration: TextDecoration.none, color: Colors.blue)),
@@ -288,7 +343,7 @@ class _ProfileUserState extends State<ProfileUser> {
           shape: StadiumBorder(),
           textColor: Color(0xff0752D8),
           onPressed: onChangedEdit,
-              child: Text(_isEnabled ? "Guardar" : "Editar"),
+          child: Text(_isEnabled ? "Guardar" : "Editar"),
           borderSide: BorderSide(
               color: Color(0xff0752D8), style: BorderStyle.solid, width: 1),
         ),
@@ -296,7 +351,7 @@ class _ProfileUserState extends State<ProfileUser> {
     );
   }
 
-    onChangedEdit() {
+  onChangedEdit() {
     setState(() {
       _isEnabled = !_isEnabled;
     });

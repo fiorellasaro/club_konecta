@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/kamu.png"),
+              AssetImage("assets/kami.png"),
             ),
             title: Text('Kami'),
           ),

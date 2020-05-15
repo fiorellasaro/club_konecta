@@ -1,24 +1,22 @@
 import 'package:flutter/foundation.dart';
 
+
 class User {
-  // final int id;
-  final String name;
-  // final String email;
-  // final String phone;
+  final String id;
+  final String nombre;
+  final String apellido;
 
   User({
-    // @required this.id,
-    // @required this.email,
-    @required this.name,
-    // @required this.phone,
+    @required this.id,
+    @required this.nombre,
+    @required this.apellido,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      // id: json['Id'] as int,
-      // email: json['email'] as String,
-      name: json['name'] as String,
-      // phone: json['phone'] as String,
+      id: json['id'] as String,
+      nombre: json['nombre'] as String,
+      apellido: json['apellido'] as String,
     );
   }
 }
